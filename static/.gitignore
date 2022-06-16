@@ -1,0 +1,13 @@
+*
+*/
+!.gitignore
+!__init__.py
+!Book.cvs
+!Book1.cvs
+!country.cvs
+!crops.cvs
+!countryru.cvs
+!months.cvs
+!plants.cvs
+!users.cvs
+!productTypes.cvs
