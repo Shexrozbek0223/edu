@@ -11,10 +11,14 @@ from .models import (
     Experiment,
     Note,
     ProductionMany,
+    Countries,
+    Months,
+    
  
 )
 # Register your models here.
-
+admin.site.register(Countries)
+admin.site.register(Months)
 admin.site.register(Research)
 admin.site.register(PHenology)
 admin.site.register(Production)
