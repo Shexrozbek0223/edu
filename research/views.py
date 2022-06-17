@@ -36,7 +36,7 @@ from rest_framework import status
 import json
 
 class UserPasswordChangeAPIView(views.APIView):
-    permission_classes = [permissions.IsAuthenticated]
+    # permission_classes = [permissions.IsAuthenticated]
 
     def get(self, request):
         serializer = UserSerializer(request.user)
@@ -65,7 +65,7 @@ class UserPasswordChangeAPIView(views.APIView):
 
 
 class AllDataAPIView(views.APIView):
-    permission_classes = [permissions.IsAuthenticated]
+    # permission_classes = [permissions.IsAuthenticated]
     def get(self,request):
         all_data = AllData.objects.all()
         note = AllDataSerializer(all_data,many=True).data
@@ -165,7 +165,7 @@ class AllDataAPIView(views.APIView):
         return Response(all_data,status=status.HTTP_200_OK)
             
 class ResearchAPIView(views.APIView):
-    permission_classes = [permissions.IsAuthenticated]
+    # permission_classes = [permissions.IsAuthenticated]
 
     def get(self,request,pk):
         research_data = get_object_or_404(Research.objects.all(), pk=pk)
@@ -182,7 +182,7 @@ class ResearchAPIView(views.APIView):
         return Response(ResearchResponceSerializer(research_save).data,status = status.HTTP_201_CREATED)
 
 class ProductionAPIView(views.APIView):
-    permission_classes = [permissions.IsAuthenticated]
+    # permission_classes = [permissions.IsAuthenticated]
 
     def get(self,request,pk):
         product_data = get_object_or_404(Production.objects.all(), pk=pk)
@@ -206,7 +206,7 @@ class ProductionAPIView(views.APIView):
         return Response(ProductionSerializer(product_save).data,status = status.HTTP_201_CREATED)
 
 class ProtectAPIView(views.APIView):
-    permission_classes = [permissions.IsAuthenticated]
+    # permission_classes = [permissions.IsAuthenticated]
 
     def get(self,request,pk):
         protect_data = get_object_or_404(Protect.objects.all(), pk=pk)
@@ -232,7 +232,7 @@ class ProtectAPIView(views.APIView):
         else:
             return Response({"error":serializer.errors},status = status.HTTP_400_BAD_REQUEST)
 class PHenologyAPIView(views.APIView):
-    permission_classes = [permissions.IsAuthenticated]
+    # permission_classes = [permissions.IsAuthenticated]
 
     def get(self,request,pk):
         research_data = get_object_or_404(PHenology.objects.all(), pk=pk)
@@ -250,7 +250,7 @@ class PHenologyAPIView(views.APIView):
             return Response({"errors":serializer.errors},status = status.HTTP_400_BAD_REQUEST)
 
 class PhotoUpdateAPIView(views.APIView):
-    permission_classes = [permissions.IsAuthenticated]
+    # permission_classes = [permissions.IsAuthenticated]
 
     def get(self,request,pk):
         photo_data = get_object_or_404(Photo.objects.all(), pk=pk)
@@ -276,7 +276,7 @@ class PhotoUpdateAPIView(views.APIView):
             return Response({"errot":serializer.errors.data},status = status.HTTP_400_BAD_REQUEST)
         return Response(status=status.HTTP_200_OK)
 class NoteUpdateAPIView(views.APIView):
-    permission_classes = [permissions.IsAuthenticated]
+    # permission_classes = [permissions.IsAuthenticated]
 
     def get(self,request,pk):
         note_data = get_object_or_404(Note.objects.all(), pk=pk)
@@ -301,7 +301,7 @@ class NoteUpdateAPIView(views.APIView):
             return Response({"errot":serializer.errors.data},status = status.HTTP_400_BAD_REQUEST)
  
 class ExperimentUpdateAPIView(views.APIView):
-    permission_classes = [permissions.IsAuthenticated]
+    # permission_classes = [permissions.IsAuthenticated]
 
     def get(self,request,pk):
         experiment_data = get_object_or_404(Experiment.objects.all(), pk=pk)
@@ -328,7 +328,7 @@ class ExperimentUpdateAPIView(views.APIView):
             return Response({"errot":serializer.errors.data},status = status.HTTP_400_BAD_REQUEST)    
 
 class WokrekResult(views.APIView):
-    permission_classes = [permissions.IsAuthenticated]
+    # permission_classes = [permissions.IsAuthenticated]
 
     def get(self,request):
         context=[]
@@ -354,7 +354,7 @@ class WokrekResult(views.APIView):
 
 
 class Quarantine(views.APIView):
-    permission_classes = [permissions.IsAuthenticated]
+    # permission_classes = [permissions.IsAuthenticated]
 
     def get(self,request):
         context={}
