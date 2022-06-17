@@ -13,7 +13,12 @@ from .views import (
     NoteUpdateAPIView,
     UserPasswordChangeAPIView,
     WokrekResult,
-    Quarantine
+    Quarantine,
+    PlantsAPIviews,
+    CountriesAPIviews,
+    ProductTypesviews,
+    MonthAPIviews
+
 )
 
 # define the router
@@ -25,6 +30,10 @@ app_name = 'research'
 
 urlpatterns = [
     path('', include(router.urls)),
+    path("product",PlantsAPIviews.as_view()),# excellent
+    path("product/type",ProductTypesviews.as_view()),# excellent
+    path("country",CountriesAPIviews.as_view()),# excellent
+    path("months",MonthAPIviews.as_view()),# excellent
     path("research/<int:pk>/",ResearchAPIView.as_view()),# excellent
     path("product/<int:pk>/",ProductionAPIView.as_view()),# excellent
     path("protect/<int:pk>/",ProtectAPIView.as_view()),# excellent

@@ -12,11 +12,16 @@ from .serializers import (
     ResearchGetSerializer,
     UserPasswordChangeSerializer,
     UserSerializer,
-    ResearchResponceSerializer
+    ResearchResponceSerializer,
+    MonthSerializer,
+    PlantsSerializer,
+    CountriesSerializer,
+    ProductTypesSerializer
 )
 from users.models import UserInfo
 from .models import (
-    AllData, 
+    AllData,
+    Months, 
     Note, 
     Photo, 
     PhotoMany,
@@ -29,11 +34,37 @@ from .models import (
     Protect,
     Experiment,
     NoteMany,
-    ExperimentMany
+    ExperimentMany,
+    Countries,
+    ProductTypes
+    
 )
 from rest_framework.response import Response
 from rest_framework import status
 import json
+
+class PlantsAPIviews(views.APIView):
+    def get(self,request):
+        plant = Plants.objects.all()
+        return Response(PlantsSerializer(plant,many=True).data,status=status.HTTP_200_OK)
+
+
+class MonthAPIviews(views.APIView):
+    def get(self,request):
+        month = Months.objects.all()
+        return Response(MonthSerializer(month,many=True).data,status=status.HTTP_200_OK)
+
+
+class CountriesAPIviews(views.APIView):
+    def get(self,request):
+        country = Countries.objects.all()
+        return Response(CountriesSerializer(country,many=True).data,status=status.HTTP_200_OK)
+    
+
+class ProductTypesviews(views.APIView):
+    def get(self,request):
+        type = ProductTypes.objects.all()
+        return Response(ProductTypesSerializer(type,many=True).data,status=status.HTTP_200_OK)
 
 class UserPasswordChangeAPIView(views.APIView):
     # permission_classes = [permissions.IsAuthenticated]

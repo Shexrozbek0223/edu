@@ -1,4 +1,5 @@
 
+from pyexpat import model
 from django.contrib.auth.password_validation import validate_password
 from rest_framework.serializers import ModelSerializer
 from rest_framework import serializers
@@ -21,6 +22,28 @@ from .models import (
     Countries,
     Months
 )
+
+class MonthSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Months
+        fields = '__all__'
+
+
+class PlantsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Plants
+        fields = ['id','name']
+
+
+class ProductTypesSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ProductTypes
+        fields = ['id','product']
+
+class CountriesSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Countries
+        fields = ['id','name_ru']
 
 class MonthRelatedField(serializers.RelatedField):
     def display_value(self, instance):
@@ -261,7 +284,7 @@ class NoteSerializer(ModelSerializer):
 class PlantsSerializer(ModelSerializer):
     class Meta:
         model = Plants
-        fields="__all__"
+        fields=['id','name']
 
 class ProtectSerializer(ModelSerializer):
     created_by = UserInfoSerializers()
