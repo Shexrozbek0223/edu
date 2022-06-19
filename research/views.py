@@ -1,15 +1,22 @@
 from django.shortcuts import get_object_or_404
 from rest_framework import views
 from rest_framework import permissions
+
+import research
 from .serializers import (
-    AllDataSerializer,
+    AllDataGetSerializer,
+    AllDataResponceSerializer,
     ExperimentSerializer,
     NoteSerializer, 
-    PHenologySerializer,
+    PHenologyResponceSerializer,
+    PHenologyGetSerializer,
     PhotoSerializer, 
-    ProductionSerializer, 
-    ProtectSerializer, 
+    ProductionGetSerializer,
+    ProductionResponceSerializer, 
+    ProtectGetSerializer,
+    ProtectResponceSerializer,
     ResearchGetSerializer,
+    ResearchResponceSerializer,
     UserPasswordChangeSerializer,
     UserSerializer,
     ResearchResponceSerializer,
@@ -98,20 +105,24 @@ class UserPasswordChangeAPIView(views.APIView):
 class AllDataAPIView(views.APIView):
     # permission_classes = [permissions.IsAuthenticated]
     def get(self,request):
+        search = request.query_params.get('type')
+        quarantine = request.query_params.get('quarantine_type')
         all_data = AllData.objects.all()
-        note = AllDataSerializer(all_data,many=True).data
+        if quarantine is not None:
+            all_data = all_data.filter(all_research__quarantine_type = quarantine)
+        if search is not None:
+            all_data = all_data.filter(all_research__type = search)
+        res = AllDataResponceSerializer(all_data,many=True).data
 
-        return Response(note,status = status.HTTP_200_OK)
+        return Response(res,status = status.HTTP_200_OK)
     
     def post(self,request):
-        print(request.data)
         all_data ={}
         all_data['all_research']=json.loads(request.data.get('all_research'))
         all_data['all_product']=json.loads(request.data.get('all_product'))
         all_data['all_phenology']=json.loads(request.data.get('all_phenology'))
         all_data['all_protect']=json.loads(request.data.get('all_protect'))
-        print(all_data)
-        serializer = AllDataSerializer(data=all_data)
+        serializer = AllDataGetSerializer(data=all_data)
         # # print("SER", serializer.data)
         if serializer.is_valid():
         #     print("OK", serializer.validated_data)
@@ -190,7 +201,7 @@ class AllDataAPIView(views.APIView):
                 experiment_many= ExperimentMany.objects.create(experiment=experiment)
                 experiment_data.experiment.add(experiment_many)       
 
-            return Response(AllDataSerializer(all_datas).data,status=status.HTTP_200_OK)
+            return Response(AllDataResponceSerializer(all_datas).data,status=status.HTTP_200_OK)
         else:
             return Response({"error": serializer.errors},status=status.HTTP_400_BAD_REQUEST)
         return Response(all_data,status=status.HTTP_200_OK)
@@ -217,13 +228,13 @@ class ProductionAPIView(views.APIView):
 
     def get(self,request,pk):
         product_data = get_object_or_404(Production.objects.all(), pk=pk)
-        return Response(ProductionSerializer(product_data).data,status=status.HTTP_200_OK)
+        return Response(ProductionGetSerializer(product_data).data,status=status.HTTP_200_OK)
     
     def put(self, request, pk):
         product_data = get_object_or_404(Production.objects.all(), pk=pk)
         data = request.data
         print(request.user)
-        serializer = ProductionSerializer(instance=product_data, data=data, partial=True)
+        serializer = ProductionGetSerializer(instance=product_data, data=data, partial=True)
         if serializer.is_valid(raise_exception=True):
             product_save = serializer.save()
             product_save.updated_by = request.user
@@ -234,20 +245,20 @@ class ProductionAPIView(views.APIView):
                     plant_type = ProductTypes.objects.get(id = product.get('type_product'))
                     product_data = ProductionMany.objects.create(product = plant,product_hs_code = product.get('product_hs_code'),type_product =plant_type)
                     product_save.product.add(product_data)
-        return Response(ProductionSerializer(product_save).data,status = status.HTTP_201_CREATED)
+        return Response(ProductionResponceSerializer(product_save).data,status = status.HTTP_201_CREATED)
 
 class ProtectAPIView(views.APIView):
     # permission_classes = [permissions.IsAuthenticated]
 
     def get(self,request,pk):
         protect_data = get_object_or_404(Protect.objects.all(), pk=pk)
-        return Response(ProtectSerializer(protect_data).data,status=status.HTTP_200_OK)
+        return Response(ProtectResponceSerializer(protect_data).data,status=status.HTTP_200_OK)
         
     def put(self, request, pk):
         protect_data = get_object_or_404(Protect.objects.all(), pk=pk)
         data = request.data
         print(bool(request.FILES.get('agro_vedio')))
-        serializer = ProtectSerializer(instance=protect_data, data=data, partial=True)
+        serializer = ProtectGetSerializer(instance=protect_data, data=data, partial=True)
         if serializer.is_valid():
             print(type(request.FILES.get('bio_vedio')))
             protect_save = serializer.save()
@@ -259,7 +270,7 @@ class ProtectAPIView(views.APIView):
             if bool(request.FILES.get('chemistry_vedio')):
                 protect_save.chemistry_vedio = request.FILES.get('chemistry_vedio')
             protect_save.save()
-            return Response(ProtectSerializer(protect_save).data,status = status.HTTP_201_CREATED)
+            return Response(ProtectResponceSerializer(protect_save).data,status = status.HTTP_201_CREATED)
         else:
             return Response({"error":serializer.errors},status = status.HTTP_400_BAD_REQUEST)
 class PHenologyAPIView(views.APIView):
@@ -267,16 +278,16 @@ class PHenologyAPIView(views.APIView):
 
     def get(self,request,pk):
         research_data = get_object_or_404(PHenology.objects.all(), pk=pk)
-        return Response(PHenologySerializer(research_data).data,status=status.HTTP_200_OK)
+        return Response(PHenologyResponceSerializer(research_data).data,status=status.HTTP_200_OK)
         
     def put(self, request, pk):
         phenology_data = get_object_or_404(PHenology.objects.all(), pk=pk)
         data = request.data
-        serializer = PHenologySerializer(instance=phenology_data, data=data, partial=True)
+        serializer = PHenologyGetSerializer(instance=phenology_data, data=data, partial=True)
         if serializer.is_valid():
             phenology_save = serializer.save()
             phenology_save.updated_by=request.user
-            return Response(PHenologySerializer(phenology_save).data,status = status.HTTP_201_CREATED)
+            return Response(PHenologyResponceSerializer(phenology_save).data,status = status.HTTP_201_CREATED)
         else:
             return Response({"errors":serializer.errors},status = status.HTTP_400_BAD_REQUEST)
 

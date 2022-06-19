@@ -44,7 +44,7 @@ urlpatterns = [
     path("user/change/password",UserPasswordChangeAPIView.as_view()),# excellent
     path('worker/resalt',WokrekResult.as_view()),# excellent
     path('quarantine/resalt/',Quarantine.as_view()),# excellent
-    re_path(r"^alldata/$",AllDataAPIView.as_view()),# excellent
+    re_path(r"^alldata$",AllDataAPIView.as_view()),# excellent
     re_path(r'^auth/$', auth_views.obtain_auth_token),
    
    

@@ -40,6 +40,12 @@ class ProductTypesSerializer(serializers.ModelSerializer):
         model = ProductTypes
         fields = ['id','product']
 
+class ProductManySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ProductTypes
+        fields = ['product']
+
+
 class CountriesSerializer(serializers.ModelSerializer):
     class Meta:
         model = Countries
@@ -71,10 +77,20 @@ class UserInfoSerializers(serializers.ModelSerializer):
         model = UserInfo
         fields = ['full_name'] 
 
+class PlantsResponceSerializer(ModelSerializer):
+    class Meta:
+        model = Plants
+        fields=['name']
 
+
+class ProductionManyResponceSerializers(serializers.ModelSerializer):
+    product = PlantsResponceSerializer()
+    type_product = ProductManySerializer()
+    class Meta:
+        model = ProductionMany
+        fields = ['product','product_hs_code','type_product']
 
 class ProductionManySerializers(serializers.ModelSerializer):
-
     class Meta:
         model = ProductionMany
         fields = ['product','product_hs_code','type_product']
@@ -108,8 +124,8 @@ class ExperimentManySerializers(serializers.ModelSerializer):
 
 
 class ResearchGetSerializer(ModelSerializer):
-    created_by = UserInfoSerializers()
-    updated_by = UserInfoSerializers()
+    # created_by = UserInfoSerializers()
+    # updated_by = UserInfoSerializers()
     class Meta:
         model = Research
         fields=['id','quarantine_type','name_latin','name_uzb','type','description','status','country','confirmation_status','created_by','updated_by']
@@ -121,7 +137,9 @@ class ResearchGetSerializer(ModelSerializer):
             'description': {'required': True},
             'country': {'required': True},
             'status': {'required': False},
-            'confirmation_status': {'required': False}
+            'confirmation_status': {'required': False},
+            'created_by': {'required': False},
+            'updated_by': {'required': False}
         }
     def update(self, instance, validated_data):
         instance.quarantine_type = validated_data.get('quarantine_type', instance.quarantine_type)
@@ -156,9 +174,18 @@ class ResearchResponceSerializer(ModelSerializer):
             'status': {'required': False},
             'confirmation_status': {'required': False}
         }
+class PHenologyGetSerializer(ModelSerializer):
+    month_eggs = MonthRelatedField(queryset=Months.objects.all(), many=True, required=False)
+    month_larva = MonthRelatedField(queryset=Months.objects.all(), many=True, required=False)
+    month_fungus = MonthRelatedField(queryset=Months.objects.all(), many=True, required=False)
+    month_mature = MonthRelatedField(queryset=Months.objects.all(), many=True, required=False)
+    month_m = MonthRelatedField(queryset=Months.objects.all(), many=True, required=False)
+    class Meta:
+        model = PHenology
+        fields="__all__"
+        # exclude = ['created_by','updated_by']
 
-
-class PHenologySerializer(ModelSerializer):
+class PHenologyResponceSerializer(ModelSerializer):
     created_by = UserInfoSerializers()
     updated_by = UserInfoSerializers()
     month_eggs = MonthRelatedField(queryset=Months.objects.all(), many=True, required=False)
@@ -229,11 +256,22 @@ class PhotoSerializer(ModelSerializer):
             
         }
 
+class ProductionGetSerializer(ModelSerializer):
+    product = ProductionManySerializers(many=True, required=False)
+    class Meta:
+        model = Production
+        fields="__all__"
+        extra_kwargs = {
+            'product_status': {'required': False},
+            'product': {'required': True},
+            'confirmation_status': {'required': False}
+        }
 
-class ProductionSerializer(ModelSerializer):
+
+class ProductionResponceSerializer(ModelSerializer):
     created_by = UserInfoSerializers()
     updated_by = UserInfoSerializers()
-    product = ProductionManySerializers(many=True, required=False)
+    product = ProductionManyResponceSerializers(many=True, required=False)
     class Meta:
         model = Production
         fields="__all__"
@@ -286,7 +324,13 @@ class PlantsSerializer(ModelSerializer):
         model = Plants
         fields=['id','name']
 
-class ProtectSerializer(ModelSerializer):
+class ProtectGetSerializer(ModelSerializer):
+    class Meta:
+        model = Protect
+        fields="__all__"
+
+
+class ProtectResponceSerializer(ModelSerializer):
     created_by = UserInfoSerializers()
     updated_by = UserInfoSerializers()
     class Meta:
@@ -304,11 +348,11 @@ class ProtectSerializer(ModelSerializer):
         return instance
 
 
-class AllDataSerializer(ModelSerializer):
+class AllDataGetSerializer(ModelSerializer):
     all_research = ResearchGetSerializer()
-    all_product = ProductionSerializer()
-    all_phenology = PHenologySerializer()
-    all_protect = ProtectSerializer()
+    all_product = ProductionGetSerializer()
+    all_phenology = PHenologyGetSerializer()
+    all_protect = ProtectGetSerializer()
     photos = PhotoSerializer(source='photes', many=True, read_only=True)
     notes_out = NoteSerializer(source='notes', many=True, read_only=True)
     experiments_out = ExperimentSerializer(source='experiments', many=True, read_only=True)
@@ -335,3 +379,16 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserInfo
         fields = ['id', 'username',]
+
+
+class AllDataResponceSerializer(ModelSerializer):
+    all_research = ResearchResponceSerializer()
+    all_product = ProductionResponceSerializer()
+    all_phenology = PHenologyResponceSerializer()
+    all_protect = ProtectResponceSerializer()
+    photos = PhotoSerializer(source='photes', many=True, read_only=True)
+    notes_out = NoteSerializer(source='notes', many=True, read_only=True)
+    experiments_out = ExperimentSerializer(source='experiments', many=True, read_only=True)
+    class Meta:
+        model = AllData
+        fields="__all__"
