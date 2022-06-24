@@ -25,7 +25,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api-auth/', include('rest_framework.urls')),
     path('api/',include('research.urls')),
-    path('', TemplateView.as_view('index.html')),
+    path('', TemplateView.as_view(template_name='index.html')),
     # re_path(r"^$", index),
    # re_path(r"^(?:.*)/?$", index),
 ]
