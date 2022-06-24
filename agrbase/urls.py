@@ -26,7 +26,7 @@ urlpatterns = [
     path('api-auth/', include('rest_framework.urls')),
     path('api/',include('research.urls')),
     path('', TemplateView.as_view('index.html')),
-    re_path(r"^$", index),
+    # re_path(r"^$", index),
    # re_path(r"^(?:.*)/?$", index),
 ]
 
