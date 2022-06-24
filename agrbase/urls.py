@@ -25,7 +25,7 @@ urlpatterns = [
     path('api-auth/', include('rest_framework.urls')),
     path('api/',include('research.urls')),
     re_path(r"^$", index),
-    # re_path(r"^(?:.*)/?$", index),
+   # re_path(r"^(?:.*)/?$", index),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)#imp for what you want to achieve.

@@ -56,6 +56,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'corsheaders.middleware.CorsMiddleware',
+    "whitenoise.middleware.WhiteNoiseMiddleware",
 ]
 
 ROOT_URLCONF = 'agrbase.urls'
@@ -111,9 +112,9 @@ DATABASES = {
         # 'ENGINE': 'django.db.backends.sqlite3',
         # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'education',
+        'NAME': 'edubase',
         'USER': 'postgres',
-        'PASSWORD': '000',
+        'PASSWORD': '20020723sh',
         'HOST': '127.0.0.1',
         'PORT': '5432',
     }
@@ -170,7 +171,7 @@ CORS_ORIGIN_WHITELIST = (
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static-files')
 STATICFILES_DIRS = [
     # Tell Django where to look for React's static files (css, js)
     os.path.join(BASE_DIR, "frontend/templates/build/static"),

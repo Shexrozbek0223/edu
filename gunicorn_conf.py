@@ -1,4 +1,4 @@
-command = '/home/var/projects/edu/bin/gunicorn'
+command = '/home/username/var/projects/edu/bin/gunicorn'
 pythonpath = '/home/var/projects/edu/'
 bind = '0.0.0.0:8801'
 workers = 3
