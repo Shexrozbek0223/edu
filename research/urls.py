@@ -17,7 +17,12 @@ from .views import (
     PlantsAPIviews,
     CountriesAPIviews,
     ProductTypesviews,
-    MonthAPIviews
+    MonthAPIviews,
+    AllDataGetAPIView,
+    AllDataGetAPIView2,
+    AllDataAPIView2
+
+    
 
 )
 
@@ -42,9 +47,13 @@ urlpatterns = [
     path("photo/<int:pk>/",PhotoUpdateAPIView.as_view()),# excellent
     path("note/<int:pk>/",NoteUpdateAPIView.as_view()),# excellent
     path("user/change/password",UserPasswordChangeAPIView.as_view()),# excellent
-    path('worker/resalt',WokrekResult.as_view()),# excellent
+    path('worker/resalt/',WokrekResult.as_view()),# excellent
     path('quarantine/resalt/',Quarantine.as_view()),# excellent
-    re_path(r"^alldata$",AllDataAPIView.as_view()),# excellent
+    path('alldata/<int:pk>/',AllDataGetAPIView.as_view()),# excellent
+    path('alldataa/<int:pk>/',AllDataGetAPIView2.as_view()),# excellent
+    path('alldata2/',AllDataAPIView2.as_view()),# excellent
+    
+    re_path(r"^alldata/$",AllDataAPIView.as_view()),# excellent
     re_path(r'^auth/$', auth_views.obtain_auth_token),
    
    
