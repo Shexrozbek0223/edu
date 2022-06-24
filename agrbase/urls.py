@@ -19,11 +19,13 @@ from django.conf import settings
 from django.conf.urls.static import static
 from frontend.views import index
 from rest_framework import routers
+from django.views.generic import TemplateView
 router = routers.DefaultRouter()
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api-auth/', include('rest_framework.urls')),
     path('api/',include('research.urls')),
+    path('', TemplateView.as_view('index.html')),
     re_path(r"^$", index),
    # re_path(r"^(?:.*)/?$", index),
 ]
