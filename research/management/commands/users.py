@@ -33,9 +33,9 @@ class Command(BaseCommand):
             )
             if UserInfo.objects.filter(username=f'u{str(user.inps_number)}').exists() or UserInfo.objects.filter(
                     phone_number=user.phone_number).exists():
-                print(f'This {user.full_name_latin} user is already exists')
                 continue
             new_user.set_password(str(user.inps_number))
             new_user.save()
+            print('Finish')
             # print(f'User {user.full_name_latin} has been created successfully')
             # print(user.full_name)
