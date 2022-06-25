@@ -76,7 +76,7 @@ class ProductTypesviews(views.APIView):
         return Response(ProductTypesSerializer(type,many=True).data,status=status.HTTP_200_OK)
 
 class UserPasswordChangeAPIView(views.APIView):
-    permission_classes = [permissions.IsAuthenticated]
+    # permission_classes = [permissions.IsAuthenticated]
 
     def get(self, request):
         serializer = UserSerializer(request.user)
@@ -103,21 +103,21 @@ class UserPasswordChangeAPIView(views.APIView):
             self.object.save()
             return Response(user_info_serializer.data, status=status.HTTP_200_OK)
 class AllDataGetAPIView(views.APIView):
-    permission_classes = [permissions.IsAuthenticated]
+    # permission_classes = [permissions.IsAuthenticated]
     def get(self,request,pk):
         all_data = get_object_or_404(AllData.objects.all(), pk=pk)
         res = AllDataResponceSerializer(all_data)
         return Response(res.data,status = status.HTTP_200_OK)
 
 class AllDataGetAPIView2(views.APIView):
-    permission_classes = [permissions.IsAuthenticated]
+    # permission_classes = [permissions.IsAuthenticated]
     def get(self,request,pk):
         all_data = get_object_or_404(AllData.objects.all(), pk=pk)
         res = AllDataResponceSerializer2(all_data)
         return Response(res.data,status = status.HTTP_200_OK)
 
 class AllDataAPIView2(views.APIView):
-    permission_classes = [permissions.IsAuthenticated]
+    # permission_classes = [permissions.IsAuthenticated]
     def get(self,request):
         search = request.query_params.get('type')
         quarantine = request.query_params.get('quarantine_type')
@@ -130,7 +130,7 @@ class AllDataAPIView2(views.APIView):
         return Response(res.data,status = status.HTTP_200_OK)
 
 class AllDataAPIView(views.APIView):
-    permission_classes = [permissions.IsAuthenticated]
+    # permission_classes = [permissions.IsAuthenticated]
     def get(self,request):
         search = request.query_params.get('type')
         quarantine = request.query_params.get('quarantine_type')
@@ -256,7 +256,7 @@ class AllDataAPIView(views.APIView):
 
             
 class ResearchAPIView(views.APIView):
-    permission_classes = [permissions.IsAuthenticated]
+    # permission_classes = [permissions.IsAuthenticated]
 
     def get(self,request,pk):
         research_data = get_object_or_404(Research.objects.all(), pk=pk)
@@ -274,7 +274,7 @@ class ResearchAPIView(views.APIView):
         return Response(ResearchResponceSerializer(research_save).data,status = status.HTTP_201_CREATED)
 
 class ProductionAPIView(views.APIView):
-    permission_classes = [permissions.IsAuthenticated]
+    # permission_classes = [permissions.IsAuthenticated]
 
     def get(self,request,pk):
         product_data = get_object_or_404(Production.objects.all(), pk=pk)
@@ -302,7 +302,7 @@ class ProductionAPIView(views.APIView):
             return Response({"error":serializer.errors},status=status.HTTP_400_BAD_REQUEST)
 
 class ProtectAPIView(views.APIView):
-    permission_classes = [permissions.IsAuthenticated]
+    # permission_classes = [permissions.IsAuthenticated]
 
     def get(self,request,pk):
         protect_data = get_object_or_404(Protect.objects.all(), pk=pk)
@@ -330,7 +330,7 @@ class ProtectAPIView(views.APIView):
         else:
             return Response({"error":serializer.errors},status = status.HTTP_400_BAD_REQUEST)
 class PHenologyAPIView(views.APIView):
-    permission_classes = [permissions.IsAuthenticated]
+    # permission_classes = [permissions.IsAuthenticated]
 
     def get(self,request,pk):
         research_data = get_object_or_404(PHenology.objects.all(), pk=pk)
@@ -350,7 +350,7 @@ class PHenologyAPIView(views.APIView):
             return Response({"errors":serializer.errors},status = status.HTTP_400_BAD_REQUEST)
 
 class PhotoUpdateAPIView(views.APIView):
-    permission_classes = [permissions.IsAuthenticated]
+    # permission_classes = [permissions.IsAuthenticated]
 
     def get(self,request,pk):
         photo_data = get_object_or_404(Photo.objects.all(), pk=pk)
@@ -376,7 +376,7 @@ class PhotoUpdateAPIView(views.APIView):
             return Response({"errot":serializer.errors.data},status = status.HTTP_400_BAD_REQUEST)
         return Response(status=status.HTTP_200_OK)
 class NoteUpdateAPIView(views.APIView):
-    permission_classes = [permissions.IsAuthenticated]
+    # permission_classes = [permissions.IsAuthenticated]
 
     def get(self,request,pk):
         note_data = get_object_or_404(Note.objects.all(), pk=pk)
@@ -402,7 +402,7 @@ class NoteUpdateAPIView(views.APIView):
             return Response({"errot":serializer.errors.data},status = status.HTTP_400_BAD_REQUEST)
  
 class ExperimentUpdateAPIView(views.APIView):
-    permission_classes = [permissions.IsAuthenticated]
+    # permission_classes = [permissions.IsAuthenticated]
 
     def get(self,request,pk):
         experiment_data = get_object_or_404(Experiment.objects.all(), pk=pk)
@@ -430,7 +430,7 @@ class ExperimentUpdateAPIView(views.APIView):
             return Response({"errot":serializer.errors.data},status = status.HTTP_400_BAD_REQUEST)    
 
 class WokrekResult(views.APIView):
-    permission_classes = [permissions.IsAuthenticated]
+    # permission_classes = [permissions.IsAuthenticated]
 
     def get(self,request):
         context=[]
@@ -456,7 +456,7 @@ class WokrekResult(views.APIView):
 
 
 class Quarantine(views.APIView):
-    permission_classes = [permissions.IsAuthenticated]
+    # permission_classes = [permissions.IsAuthenticated]
 
     def get(self,request):
         context={}
