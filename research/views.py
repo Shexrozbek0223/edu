@@ -445,9 +445,9 @@ class WokrekResult(views.APIView):
             counts['Маҳсулот']= Production.objects.filter(created_by=user,product_status=True).count()
             counts['Фенология']= PHenology.objects.filter(created_by=user,pheno_status=True).count()
             counts['Қаршикураш']= Protect.objects.filter(created_by=user,protect_status=True).count()
-            counts['Фото']= Photo.objects.filter(created_by=user).count()
-            counts['Қўлёзмалар']=Note.objects.filter(created_by=user).count()
-            counts['Тажрибалар'] = Experiment.objects.filter(created_by=user).count()
+            counts['Фото']= Photo.objects.filter(created_by=user,photo_status=True).count()
+            counts['Қўлёзмалар']=Note.objects.filter(created_by=user,note_status=True).count()
+            counts['Тажрибалар'] = Experiment.objects.filter(created_by=user,experiment_status=True).count()
             counts['Сумма'] = counts['Зарарлирганизм'] + counts['Маҳсулот'] + counts['Қаршикураш']\
                                 + counts['Фото'] + counts['Фенология'] + counts['Қўлёзмалар'] + counts['Тажрибалар']
             context.append(counts)
