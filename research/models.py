@@ -209,7 +209,7 @@ class Photo(BaseModel):
     confirmation_status = models.BooleanField(default=False)
     
     def __str__(self):
-        return str(self.photo.url)
+        return str(self.name)
    
 
 class Note(BaseModel):
