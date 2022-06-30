@@ -2,7 +2,7 @@ from calendar import month
 from django.shortcuts import get_object_or_404
 from rest_framework import views
 from rest_framework import permissions
-
+ChackManagerSerializer
 import research
 from .serializers import (
     AllDataGetSerializer,
@@ -489,3 +489,99 @@ class Quarantine(views.APIView):
  
         print(quarantine_type_true.count())
         return Response(context)
+
+class ManagerCheckResearch(views.APIView):
+    def put(self,request,pk):
+        research_data = get_object_or_404(Research.objects.all(), pk=pk)
+        serializer = ChackManagerSerializer(data=request.data)
+        if request.user.user_role != 1:
+            return Response({"error":"Sizga ruhsat berilmagan!!"},status=status.HTTP_400_BAD_REQUEST)
+        if serializer.is_valid():
+            research_data.confirmation_status=serializer.data.get('confirmation_status')
+            research_data.save()
+            return Response({"succes":True},status=status.HTTP_201_CREATED)
+        else:
+            return Response({"error":serializer.errors},status=status.HTTP_400_BAD_REQUEST)
+
+
+class ManagerCheckProduction(views.APIView):
+    def put(self,request,pk):
+        product_data = get_object_or_404(Production.objects.all(), pk=pk)
+        serializer = ChackManagerSerializer(data=request.data)
+        if request.user.user_role != 1:
+            return Response({"error":"Sizga ruhsat berilmagan!!"},status=status.HTTP_400_BAD_REQUEST)
+        if serializer.is_valid():
+            product_data.confirmation_status=serializer.data.get('confirmation_status')
+            product_data.save()
+            return Response({"succes":True},status=status.HTTP_201_CREATED)
+        else:
+            return Response({"error":serializer.errors},status=status.HTTP_400_BAD_REQUEST)
+
+class ManagerCheckPHenology(views.APIView):
+    def put(self,request,pk):
+        phenology_data = get_object_or_404(PHenology.objects.all(), pk=pk)
+        serializer = ChackManagerSerializer(data=request.data)
+        if request.user.user_role != 1:
+            return Response({"error":"Sizga ruhsat berilmagan!!"},status=status.HTTP_400_BAD_REQUEST)
+        if serializer.is_valid():
+            phenology_data.confirmation_status=serializer.data.get('confirmation_status')
+            phenology_data.save()
+            return Response({"succes":True},status=status.HTTP_201_CREATED)
+        else:
+            return Response({"error":serializer.errors},status=status.HTTP_400_BAD_REQUEST)
+
+
+class ManagerCheckProtect(views.APIView):
+    def put(self,request,pk):
+        protect_data = get_object_or_404(Protect.objects.all(), pk=pk)
+        serializer = ChackManagerSerializer(data=request.data)
+        if request.user.user_role != 1:
+            return Response({"error":"Sizga ruhsat berilmagan!!"},status=status.HTTP_400_BAD_REQUEST)
+        if serializer.is_valid():
+            protect_data.confirmation_status=serializer.data.get('confirmation_status')
+            protect_data.save()
+            return Response({"succes":True},status=status.HTTP_201_CREATED)
+        else:
+            return Response({"error":serializer.errors},status=status.HTTP_400_BAD_REQUEST)
+
+
+class ManagerCheckPhoto(views.APIView):
+    def put(self,request,pk):
+        photo_data = get_object_or_404(Photo.objects.all(), pk=pk)
+        serializer = ChackManagerSerializer(data=request.data)
+        if request.user.user_role != 1:
+            return Response({"error":"Sizga ruhsat berilmagan!!"},status=status.HTTP_400_BAD_REQUEST)
+        if serializer.is_valid():
+            photo_data.confirmation_status=serializer.data.get('confirmation_status')
+            photo_data.save()
+            return Response({"succes":True},status=status.HTTP_201_CREATED)
+        else:
+            return Response({"error":serializer.errors},status=status.HTTP_400_BAD_REQUEST)
+
+
+class ManagerCheckNote(views.APIView):
+    def put(self,request,pk):
+        note_data = get_object_or_404(Note.objects.all(), pk=pk)
+        serializer = ChackManagerSerializer(data=request.data)
+        if request.user.user_role != 1:
+            return Response({"error":"Sizga ruhsat berilmagan!!"},status=status.HTTP_400_BAD_REQUEST)
+        if serializer.is_valid():
+            note_data.confirmation_status=serializer.data.get('confirmation_status')
+            note_data.save()
+            return Response({"succes":True},status=status.HTTP_201_CREATED)
+        else:
+            return Response({"error":serializer.errors},status=status.HTTP_400_BAD_REQUEST)
+
+
+class ManagerCheckExperiment(views.APIView):
+    def put(self,request,pk):
+        experiment_data = get_object_or_404(Experiment.objects.all(), pk=pk)
+        serializer = ChackManagerSerializer(data=request.data)
+        if request.user.user_role != 1:
+            return Response({"error":"Sizga ruhsat berilmagan!!"},status=status.HTTP_400_BAD_REQUEST)
+        if serializer.is_valid():
+            experiment_data.confirmation_status=serializer.data.get('confirmation_status')
+            experiment_data.save()
+            return Response({"succes":True},status=status.HTTP_201_CREATED)
+        else:
+            return Response({"error":serializer.errors},status=status.HTTP_400_BAD_REQUEST)

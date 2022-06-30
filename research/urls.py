@@ -20,7 +20,14 @@ from .views import (
     MonthAPIviews,
     AllDataGetAPIView,
     AllDataGetAPIView2,
-    AllDataAPIView2
+    AllDataAPIView2,
+    ManagerCheckResearch,
+    ManagerCheckProtect,
+    ManagerCheckProduction,
+    ManagerCheckExperiment,
+    ManagerCheckNote,
+    ManagerCheckPHenology,
+    ManagerCheckPhoto
 
     
 
@@ -52,6 +59,13 @@ urlpatterns = [
     path('alldata/<int:pk>/',AllDataGetAPIView.as_view()),# excellent
     path('alldataa/<int:pk>/',AllDataGetAPIView2.as_view()),# excellent
     path('alldata2/',AllDataAPIView2.as_view()),# excellent
+    path('research/check/<int:pk>/',ManagerCheckResearch.as_view()),# excellent
+    path('product/check/<int:pk>/',ManagerCheckProduction.as_view()),# excellent
+    path('phenology/check/<int:pk>/',ManagerCheckPHenology.as_view()),# excellent
+    path('protect/check/<int:pk>/',ManagerCheckProtect.as_view()),# excellent
+    path('photo/check/<int:pk>/',ManagerCheckPhoto.as_view()),# excellent
+    path('note/check/<int:pk>/',ManagerCheckNote.as_view()),# excellent
+    path('experiment/check/<int:pk>/',ManagerCheckExperiment.as_view()),# excellent
     re_path(r"^alldata/$",AllDataAPIView.as_view()),# excellent
     re_path(r'^auth/$', auth_views.obtain_auth_token),
    

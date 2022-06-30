@@ -440,3 +440,7 @@ class AllDataResponceSerializer2(ModelSerializer):
     class Meta:
         model = AllData
         fields="__all__"
+class ChackManagerSerializer(serializers.Serializer):
+    confirmation_status=serializers.BooleanField()
+    def update(self, instance, validated_data):
+        instance.confirmation_status = validated_data.get('confirmation_status', instance.confirmation_status)
