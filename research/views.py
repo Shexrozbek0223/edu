@@ -54,7 +54,7 @@ import json
 
 class PlantsAPIviews(views.APIView):
     def get(self,request):
-        plant = Plants.objects.all()
+        plant = Plants.objects.all().order_by('name')
         return Response(PlantsSerializer(plant,many=True).data,status=status.HTTP_200_OK)
 
 
@@ -66,13 +66,13 @@ class MonthAPIviews(views.APIView):
 
 class CountriesAPIviews(views.APIView):
     def get(self,request):
-        country = Countries.objects.all()
+        country = Countries.objects.all().order_by('name_ru')
         return Response(CountriesSerializer(country,many=True).data,status=status.HTTP_200_OK)
     
 
 class ProductTypesviews(views.APIView):
     def get(self,request):
-        type = ProductTypes.objects.all()
+        type = ProductTypes.objects.all().order_by('product')
         return Response(ProductTypesSerializer(type,many=True).data,status=status.HTTP_200_OK)
 
 class UserPasswordChangeAPIView(views.APIView):
