@@ -2,8 +2,6 @@ from calendar import month
 from django.shortcuts import get_object_or_404
 from rest_framework import views
 from rest_framework import permissions
-ChackManagerSerializer
-import research
 from .serializers import (
     AllDataGetSerializer,
     AllDataResponceSerializer,
@@ -25,7 +23,8 @@ from .serializers import (
     MonthSerializer,
     PlantsSerializer,
     CountriesSerializer,
-    ProductTypesSerializer
+    ProductTypesSerializer,
+    ChackManagerSerializer
 )
 from users.models import UserInfo
 from .models import (
