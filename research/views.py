@@ -62,7 +62,7 @@ class PlantsAPIviews(views.APIView):
             serializer.save()
             print(serializer.data)
             
-            return Response({"sucsess":True},status=status.HTTP_201_CREATED)
+            return Response(PlantsSerializer(Plants.objects.all(),many=True).data,status=status.HTTP_201_CREATED)
         else:
             return Response({"error":serializer.errors},status=status.HTTP_400_BAD_REQUEST)
 
