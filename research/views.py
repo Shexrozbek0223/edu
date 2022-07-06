@@ -55,7 +55,16 @@ class PlantsAPIviews(views.APIView):
     def get(self,request):
         plant = Plants.objects.all().order_by('name')
         return Response(PlantsSerializer(plant,many=True).data,status=status.HTTP_200_OK)
-
+    
+    def post(self,request):
+        serializer=PlantsSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            print(serializer.data)
+            
+            return Response({"sucsess":True},status=status.HTTP_201_CREATED)
+        else:
+            return Response({"error":serializer.errors},status=status.HTTP_400_BAD_REQUEST)
 
 class MonthAPIviews(views.APIView):
     def get(self,request):

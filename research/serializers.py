@@ -356,6 +356,9 @@ class PlantsSerializer(ModelSerializer):
     class Meta:
         model = Plants
         fields=['id','name']
+        extra_kwargs = {
+            'name': {'required': True}
+        }
 
 class ProtectGetSerializer(ModelSerializer):
     class Meta:
